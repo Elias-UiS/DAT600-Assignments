@@ -6,6 +6,7 @@ import random
 import matplotlib.pyplot as plt
 import random
 import time
+import numpy as np
 
 
 number_of_elements = []
@@ -39,11 +40,22 @@ for n in range(10, 1001, 20):
     steps_heap = sorting_algorithms_steps.heap_sort.heap_sort(arr)
     number_of_steps_heap.append(steps_heap)
 
+# Convert number_of_elements to a numpy array for easy math
+n = np.array(number_of_elements)
+
+# Theoretical curves (scaled for comparison)
+n_squared = n**2
+n_log_n = n * np.log2(n)
+
 
 plt.plot(number_of_elements, number_of_steps_insertion, label="Insertion sort (n²)")
 plt.plot(number_of_elements, number_of_steps_quick, label="quick sort (n²)")
 plt.plot(number_of_elements, number_of_steps_merge, label="merge sort (n log(n))")
 plt.plot(number_of_elements, number_of_steps_heap, label="heap sort (n log(n))")
+
+plt.plot(n, n_squared, '--', label="n² (theoretical)")
+plt.plot(n, n_log_n, '--', label="n log n (theoretical)")
+
 plt.xlabel("Input size (n)")
 plt.ylabel("Steps")
 plt.title("Sorting: Steps vs Input Size (Random inputs)")
@@ -57,19 +69,19 @@ plt.show()
 #------------------------------ Task 2
 
 
-def insertion_sort(arr):
-    for j in range(1, len(arr)):
-        key = arr[j]
-        i = j - 1
-        while i >= 0 and arr[i] > key:
-            arr[i + 1] = arr[i]
-            i -= 1
-        arr[i + 1] = key
+# def insertion_sort(arr):
+#     for j in range(1, len(arr)):
+#         key = arr[j]
+#         i = j - 1
+#         while i >= 0 and arr[i] > key:
+#             arr[i + 1] = arr[i]
+#             i -= 1
+#         arr[i + 1] = key
 
-sizes = [1000, 5000, 10000, 20000]
-for n in sizes:
-    arr = [random.randint(1, 100000) for _ in range(n)]
-    start = time.time()
-    insertion_sort(arr)
-    end = time.time()
-    print(f"Python: Insertion Sort n={n}, time={end-start:.6f} seconds")
+# sizes = [1000, 5000, 10000, 20000]
+# for n in sizes:
+#     arr = [random.randint(1, 100000) for _ in range(n)]
+#     start = time.time()
+#     insertion_sort(arr)
+#     end = time.time()
+#     print(f"Python: Insertion Sort n={n}, time={end-start:.6f} seconds")

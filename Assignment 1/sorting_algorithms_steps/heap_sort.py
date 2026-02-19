@@ -6,20 +6,21 @@ def heapify(arr, n, i):
     r = 2 * i + 2
 
     if l < n:
-        step += 1
         if arr[l] > arr[largest]:
             largest = l
+        step += 1
+    step += 1
 
     if r < n:
-        step += 1
         if arr[r] > arr[largest]:
             largest = r
-    
+        step += 1
+    step += 1
 
     if largest != i:
         arr[i], arr[largest] = arr[largest], arr[i]
-        step += 1
         step += heapify(arr, n, largest)
+    step += 1
 
     return step
 
